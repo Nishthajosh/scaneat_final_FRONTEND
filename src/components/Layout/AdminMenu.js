@@ -5,7 +5,7 @@ const AdminMenu = () => {
     <>
       <div className="text-center">
         <div className="list-group dashboard-menu">
-          <h4>Admin Panel</h4>
+          <h4 style={{"marginTop": "8px"}}>Admin Panel</h4>
           <NavLink
             to="/dashboard/admin/create-category"
             className="list-group-item list-group-item-action"
@@ -31,7 +31,19 @@ const AdminMenu = () => {
             Orders
           </NavLink>
           {/* <NavLink
+            to="/dashboard/admin/charts"
+            className="list-group-item list-group-item-action"
+          >
+            Charts
+          </NavLink> */}
+          <NavLink
             to="/dashboard/admin/users"
+            className="list-group-item list-group-item-action"
+          >
+            Qr Generator
+          </NavLink>
+          {/* <NavLink
+            to="/dashboard/admin/AllUsers"
             className="list-group-item list-group-item-action"
           >
             Users

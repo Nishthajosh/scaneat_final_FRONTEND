@@ -39,7 +39,7 @@ const ForgotPasssword = () => {
     <Layout title={"Forgot Password - Scan&Eat"}>
       <div className="form-container ">
         <form onSubmit={handleSubmit}>
-          <h4 className="title">RESET PASSWORD</h4>
+          <h4 className="title" style={{color:"antiquewhite"}}>RESET PASSWORD</h4>
 
           <div className="mb-3">
             <input

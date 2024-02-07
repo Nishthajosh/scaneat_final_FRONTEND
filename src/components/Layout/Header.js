@@ -6,6 +6,10 @@ import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping ,faHouse} from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -19,6 +23,28 @@ const Header = () => {
     });
     localStorage.removeItem("auth");
     toast.success("Logout Successfully");
+  };
+  const icon_s= {
+    height:"2.5rem",
+    width:"4.5rem",
+    // lineHeight:"1.5rem",
+    fontSize:"2rem",
+    // background:"rgb(236 236 236)",
+    color:"#130f40",
+    // borderRadius:".5rem",
+    // marginLeft:".3rem",
+    cursor:"pointer",
+    textAlign:"center",
+  };
+  const logo={
+    background:"#3a825a", /* fallback for old browsers */
+    background:"-webkit-linear-gradient(to right, #3a825a, #6ed449)", /* Chrome 10-25, Safari 5.1-6 */
+    background:"linear-gradient(to right, #3a825a, #6ed449)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    "-webkit-background-clip": "text",
+    "background-clip": "text",
+    "color": "transparent",
+    fontFamily:" Playfair Display",
+    fontSize:"25px",
   };
   return (
     <>
@@ -37,13 +63,13 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand">
-              🛒 Ecommerce App
+            <h1 style={logo}>Scan&eat</h1> 
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <SearchInput />
+              {/* <SearchInput /> */}
               <li className="nav-item">
-                <NavLink to="/" className="nav-link ">
-                  Home
+              <NavLink to="/home" className="nav-link" style={icon_s} >
+              <FontAwesomeIcon icon={faHouse} style={{fontSize:"large"}} />
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
@@ -122,15 +148,27 @@ const Header = () => {
                   </li>
                 </>
               )}
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
-                  <Badge count={cart?.length} showZero offset={[10, -5]}>
-                    Cart
-                  </Badge>
+                <Badge count={cart?.reduce((total, item) => total + item.quantity, 0)} showZero offset={[10, -5]}>
+                  <FontAwesomeIcon icon={faCartShopping} fa-10x style={{fontSize:"large"}}/>            
+                        </Badge>
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
+           
           </div>
+
+          <SearchInput />
+
+         
+          <div className="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                <Badge count={cart?.reduce((total, item) => total + item.quantity, 0)} showZero offset={[10, -5]}>
+                  <FontAwesomeIcon icon={faCartShopping} fa-10x style={{fontSize:"large"}}/>            
+                        </Badge>
+                </NavLink>
+              </div>
         </div>
       </nav>
     </>

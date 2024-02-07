@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import "../styles/CartStyles.css";
 import { BASE_URL } from "../helper";
 
-
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
@@ -20,19 +19,16 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   //total price
+
   const totalPrice = () => {
-    try {
-      let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
-      });
-      return total.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    let sum = 0;
+    cart.forEach((item) => {
+      sum += item.price * (item.quantity || 1);
+    });
+    return sum.toLocaleString("en-US", {
+      style: "currency",
+      currency: "INR",
+    });
   };
   //detele item
   const removeCartItem = (pid) => {
@@ -50,7 +46,9 @@ const CartPage = () => {
   //get payment gateway token
   const getToken = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/product/braintree/token`);
+      const { data } = await axios.get(
+        `${BASE_URL}/api/v1/product/braintree/token`
+      );
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -65,10 +63,13 @@ const CartPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post(`${BASE_URL}/api/v1/product/braintree/payment`, {
-        nonce,
-        cart,
-      });
+      const { data } = await axios.post(
+        `${BASE_URL}/api/v1/product/braintree/payment`,
+        {
+          nonce,
+          cart,
+        }
+      );
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
@@ -100,8 +101,69 @@ const CartPage = () => {
         </div>
         <div className="container ">
           <div className="row ">
-            <div className="col-md-7  p-0 m-0">
+            <div className="col-md-7 col-12 col-lg-7 p-0 m-0">
+              {/* *********************************88888**UPDATED CODE************************************************** */}
               {cart?.map((p) => (
+                <div className="row card flex-row" key={p._id}>
+                  <div className="col-md-4 col-12">
+                    <img
+                      src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
+                      className=""
+                      style={{ maxWidth: "49%" }}
+                      alt={p.name}
+                      width="100%"
+                      height={"130px"}
+                    />
+                  </div>
+                  <div className="col-md-4 col-12">
+                    <p>{p.name}</p>
+                    <p>{p.description.substring(0, 30)}</p>
+                    <p>
+                      Price :{" "}
+                      {((p.quantity || 1) * p.price).toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "INR",
+                      })}
+                    </p>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="d-flex align-items-center mb-2">
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => {
+                          if (p.quantity > 1) {
+                            p.quantity -= 1;
+                            setCart([...cart]);
+                            localStorage.setItem("cart", JSON.stringify(cart));
+                          }
+                        }}
+                      >
+                        -
+                      </button>
+                      <span className="mx-2">{p.quantity || 1}</span>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => {
+                          p.quantity += 1;
+                          setCart([...cart]);
+                          localStorage.setItem("cart", JSON.stringify(cart));
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => removeCartItem(p._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {/* 0************************************U0PDATED CODE******************************* */}
+            </div>
+            {/* {cart?.map((p) => (
                 <div className="row card flex-row" key={p._id}>
                   <div className="col-md-4">
                     <img
@@ -127,8 +189,9 @@ const CartPage = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            <div className="col-md-5 cart-summary ">
+            </div> */}
+            {/* cart summary */}
+            <div className="col-md-5 col-12 col-lg-5 cart-summary ">
               <h2>Cart Summary</h2>
               <p>Total | Checkout | Payment</p>
               <hr />
@@ -195,6 +258,7 @@ const CartPage = () => {
                 )}
               </div>
             </div>
+                        {/* cart summary */}
           </div>
         </div>
       </div>

@@ -14,7 +14,9 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  const Register=()=>{
+    navigate("/register");
+  }
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/");
+        navigate(location.state || "/home");
       } else {
         toast.error(res.data.message);
       }
@@ -44,7 +46,7 @@ const Login = () => {
     <Layout title="Register - Ecommer App">
       <div className="form-container " style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
-          <h4 className="title">LOGIN FORM</h4>
+          <h4 className="title" style={{color:"antiquewhite"}}>LOGIN FORM</h4>
 
           <div className="mb-3">
             <input
@@ -83,7 +85,11 @@ const Login = () => {
 
           <button type="submit" className="btn btn-primary">
             LOGIN
+          </button><br/> <br/>
+          <button type="submit" onClick={Register} className="btn btn-primary">
+            Register
           </button>
+          
         </form>
       </div>
     </Layout>

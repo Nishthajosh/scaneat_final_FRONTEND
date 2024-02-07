@@ -53,7 +53,7 @@
 
 .footer {
   color: white;
-  padding: 25px;
+  padding: 0px;
   background: #000000; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
