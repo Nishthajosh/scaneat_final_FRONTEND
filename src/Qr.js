@@ -64,7 +64,7 @@ function Qr() {
               onScan={handleScanfile}
             />
             <h3>
-              {/* Get scanned code: <a href={scanresult}>{scanresult}</a> */}
+               Get scanned code: <a href={scanresult}>{scanresult}</a> 
             </h3>
           </div>
         </div>
