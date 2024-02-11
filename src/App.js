@@ -31,8 +31,13 @@ import ChartComponent from "./pages/Admin/ChartComponent";
 function App() {
   return (
     <>
+<<<<<<< HEAD
      {/* <Routes> <Route path="/" element={<HomePage />} /> */}
      <Routes>
+=======
+     <Routes> 
+     {/* <Route path="/" element={<HomePage />} /> */}
+>>>>>>> 24dae88782bcbcb30f755de5556a60e5db5d5a48
       <Route path="/Qr" element={<Qr />} /> 
         <Route path="/" element={<QRHome />} />
         <Route path="/home" element={<HomePage />} />
